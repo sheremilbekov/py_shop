@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+{% for product in results%}
+
+<div class="card mb-3" style="max-width: 1140px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+          <img style="width: 300px; height: auto;" src="{{ product.image.url }}">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><a href="{% url 'detail' product.id %}">{{ product.name }}</a></h5>
+        <p class="card-text">{{ product.description | truncatewords:10 }}</p>
+          {% if product.status == 'in stock' %}
+        <p style="color: green;" class="card-text">{{product.status}}</small></p>
+          {% elif product.status == 'out of stock' %}
+          <p style="color: red;" class="card-text">{{product.status}}</small></p>
+          {% else %}
+          <p style="color: blue;" class="card-text">{{product.status}}</small></p>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    {% endfor %}
+{% endblock %}
